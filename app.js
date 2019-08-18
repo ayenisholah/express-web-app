@@ -18,9 +18,37 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist/')
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+const books = [
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'Animal Farm',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+  {
+    title: 'Red Notice',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false
+  },
+]
+
 bookRouter.route('/')
   .get((req, res) => {
-    res.send('hello books');
+    res.render('books',
+      {
+        nav: [{ link: '/books', title: 'Books' },
+        { link: '/author', title: 'Authors' }],
+        title: 'Library',
+        books
+      }
+    );
   });
 
 bookRouter.route('/single')
@@ -34,9 +62,10 @@ app.get('/', (req, res) => {
   res.render('index',
     {
       nav: [{ link: '/books', title: 'Books' },
-        { link: '/author', title: 'Authors' }],
+      { link: '/author', title: 'Authors' }],
       title: 'Library',
-    });
+    }
+  );
 });
 
 app.listen(3000, () => {
