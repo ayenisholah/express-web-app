@@ -19,7 +19,13 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', (req, res) => {
-  res.render('index', { list: ['a', 'b'], title: 'Library' });
+  res.render('index',
+    {
+      nav: [{ link: '/books', title: 'Books' },
+      { link: '/author', title: 'Authors' }],
+      title: 'Library'
+    }
+  );
 });
 
 app.listen(3000, () => {
